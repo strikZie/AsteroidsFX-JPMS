@@ -48,8 +48,6 @@ public class AsteroidPlugin implements IGamePluginService {
             rotation = random.nextInt(315,405 );
             position = new Point2D(0, random.nextInt(0, gameData.getDisplayHeight()));
         }
-        System.out.println("rotation:" + rotation);
-
         newAsteroid.setScale(size);
         newAsteroid.setPosition(position);
         newAsteroid.setRotation(rotation);

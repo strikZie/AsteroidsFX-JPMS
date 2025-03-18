@@ -7,6 +7,7 @@ import dk.vbp.cbse.common.data.GameKey;
 import dk.vbp.cbse.common.data.World;
 import dk.vbp.cbse.common.services.IEntityProcessService;
 import dk.vbp.cbse.common.services.IGamePluginService;
+import dk.vbp.cbse.common.services.IPostProcessService;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -92,6 +93,10 @@ public class Game extends Application {
     private void update() {
         for (IEntityProcessService entityProcessorService : ServiceLoader.load(IEntityProcessService.class)) {
             entityProcessorService.process(world);
+        }
+
+        for (IPostProcessService postProcessorService : ServiceLoader.load(IPostProcessService.class)) {
+            postProcessorService.process(world);
         }
 
         // Remove bullets that move off-screen

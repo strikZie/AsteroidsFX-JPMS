@@ -20,9 +20,8 @@ public class EnemyPlugin implements IGamePluginService {
     private Entity createEnemy() {
         Entity newEnemy = new Enemy();
         newEnemy.setSprite(new Image("enemy.png"));
-        System.out.println(newEnemy.getRotation());
         newEnemy.setScale(1);
-        newEnemy.setPosition(new Point2D((double) gameData.getDisplayWidth() /2, (double) gameData.getDisplayHeight() /2));
+        newEnemy.setPosition(new Point2D((double) gameData.getDisplayWidth() /5, (double) gameData.getDisplayHeight() /5));
         return newEnemy;
     }
 

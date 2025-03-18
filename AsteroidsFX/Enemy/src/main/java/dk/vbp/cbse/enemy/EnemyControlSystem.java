@@ -54,28 +54,24 @@ public class EnemyControlSystem implements IEntityProcessService {
                 Point2D correctedPosLeft = enemy.getPosition().add(1, 0);
                 enemy.setPosition(correctedPosLeft);
                 enemy.setRotation(enemy.getRotation() + 180);
-                System.out.println("left");
             }
             //enemy is out of bounds at right side
             if (enemy.getPosition().getX() > gameData.getDisplayWidth()) {
                 Point2D correctedPosRight = enemy.getPosition().subtract(1, 0);
                 enemy.setPosition(correctedPosRight);
                 enemy.setRotation(enemy.getRotation() + 180);
-                System.out.println("right");
             }
             //enemy is out of bounds at top side
             if (enemy.getPosition().getY() < 0) {
                 Point2D correctedPosTop = enemy.getPosition().add(0, 1);
                 enemy.setPosition(correctedPosTop);
                 enemy.setRotation(enemy.getRotation() + 180);
-                System.out.println("top");
             }
             //enemy is out of bounds at bottom side
             if (enemy.getPosition().getY() > gameData.getDisplayHeight()) {
                 Point2D correctedPosBottom = enemy.getPosition().subtract(0, 1);
                 enemy.setPosition(correctedPosBottom);
                 enemy.setRotation(enemy.getRotation() + 180);
-                System.out.println("bottom");
             }
 
         }
