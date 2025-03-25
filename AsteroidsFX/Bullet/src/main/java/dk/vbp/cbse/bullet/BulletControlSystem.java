@@ -23,25 +23,25 @@ public class BulletControlSystem implements IEntityProcessService, BulletSPI {
         }
     }
 
+    @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     public Entity createBullet(Entity shooter) {
         Entity bullet = new Bullet();
         bullet.setSprite(new Image("bullet.png"));
 
+        double shooterX = shooter.getPosition().getX() + shooter.getSprite().getWidth()/2;
+        double shooterY = shooter.getPosition().getY() + shooter.getSprite().getHeight()/2;
+        double shooterRotation = Math.toRadians(shooter.getRotation());
 
+        double bulletSpawnOffset = shooter.getSprite().getWidth() / 2 + 20;
 
-        double shooterX = shooter.getPosition().getX();
-        double shooterY = shooter.getPosition().getY();
-
-
-        double bulletSpawnOffset = shooter.getSprite().getWidth() / 2;
-        double bulletX = shooterX +  bulletSpawnOffset;
-        double bulletY = shooterY +  bulletSpawnOffset;
+        // Calculate spawn position based on shooter rotation
+        double bulletX = shooterX + Math.sin(shooterRotation) * bulletSpawnOffset;
+        double bulletY = shooterY - Math.cos(shooterRotation) * bulletSpawnOffset;
 
         bullet.setPosition(new Point2D(bulletX, bulletY));
-        bullet.setRotation(shooter.getRotation() - 90);
+        bullet.setRotation(shooter.getRotation()-90);
         bullet.setScale(2);
-
         return bullet;
     }
 }

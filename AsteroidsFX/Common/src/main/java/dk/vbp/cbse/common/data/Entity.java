@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 
 import java.util.UUID;
 
-public class Entity {
+public abstract class Entity {
     private final UUID id = UUID.randomUUID();
     private Point2D position;
     private double rotation;
@@ -47,5 +47,14 @@ public class Entity {
 
     public void setSprite(Image sprite) {
         this.sprite = sprite;
+    }
+
+    /**
+     * used for handling entity getting hit,
+     * default: remove entity.
+     * @param world - world to manipulate entities on
+     */
+    public void hit(World world) {
+        world.removeEntity(this);
     }
 }

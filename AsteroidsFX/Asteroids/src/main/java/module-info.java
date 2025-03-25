@@ -1,5 +1,6 @@
 import dk.vbp.cbse.asteroids.AsteroidControlSystem;
 import dk.vbp.cbse.asteroids.AsteroidPlugin;
+import dk.vbp.cbse.asteroids.AsteroidSplitter;
 
 module Asteroids {
     requires Common;
@@ -9,4 +10,5 @@ module Asteroids {
 
     provides dk.vbp.cbse.common.services.IGamePluginService with AsteroidPlugin;
     provides dk.vbp.cbse.common.services.IEntityProcessService with AsteroidControlSystem;
+    provides dk.vbp.cbse.common.asteroid.IAsteroidSplitter with AsteroidSplitter;
 }

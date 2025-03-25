@@ -22,9 +22,9 @@ public class CollisionEngine implements IPostProcessService {
                 }
 
                 // CollisionDetection
-                if (this.collides(entity1, entity2)) {
-                    world.removeEntity(entity1);
-                    world.removeEntity(entity2);
+                if (collides(entity1, entity2)) {
+                    entity1.hit(world);
+                    entity2.hit(world);
                 }
             }
         }
