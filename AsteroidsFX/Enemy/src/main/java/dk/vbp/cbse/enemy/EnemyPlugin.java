@@ -7,14 +7,28 @@ import dk.vbp.cbse.common.services.IGamePluginService;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
+import java.util.List;
+
 public class EnemyPlugin implements IGamePluginService {
     private GameData gameData = GameData.getInstance();
     private Entity enemy;
 
+    int enemyCount = 2;
+
     @Override
     public void start(World world) {
-        enemy = createEnemy();
-        world.addEntity(enemy);
+        List<Entity> asteroids = world.getEntities(Enemy.class);
+        if (asteroids.size() < enemyCount) {
+            spawnEnemies(enemyCount - asteroids.size(),world);
+        }
+
+    }
+
+    private void spawnEnemies(int n, World world) {
+        for (int i = 0; i < n; i++) {
+            enemy = createEnemy();
+            world.addEntity(enemy);
+        }
     }
 
     private Entity createEnemy() {

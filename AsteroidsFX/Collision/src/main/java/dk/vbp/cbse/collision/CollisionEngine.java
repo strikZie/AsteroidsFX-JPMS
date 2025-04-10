@@ -5,12 +5,16 @@ import dk.vbp.cbse.common.data.World;
 import dk.vbp.cbse.common.services.IPostProcessService;
 import javafx.geometry.Point2D;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CollisionEngine implements IPostProcessService {
     @Override
     public void process(World world) {
+        List<Entity> entities = new ArrayList<>(world.getEntities());
         // two for loops for all entities in the world
-        for (Entity entity1 : world.getEntities()) {
-            for (Entity entity2 : world.getEntities()) {
+        for (Entity entity1 : entities) {
+            for (Entity entity2 : entities) {
 
                 // if the two entities are identical, skip
                 if (entity1.getId().equals(entity2.getId())) {

@@ -27,27 +27,20 @@ public class AsteroidControlSystem implements IEntityProcessService {
             if (asteroid.getPosition().getX() < 0) {
                 world.removeEntity(asteroid);
                 asteroidPlugin.start(world);
-                asteroidPlugin.start(world);
-
             }
             //enemy is out of bounds at right side
             if (asteroid.getPosition().getX() > gameData.getDisplayWidth()) {
                 world.removeEntity(asteroid);
                 asteroidPlugin.start(world);
-                asteroidPlugin.start(world);
-
             }
             //enemy is out of bounds at top side
             if (asteroid.getPosition().getY() < 0) {
                 world.removeEntity(asteroid);
                 asteroidPlugin.start(world);
-                asteroidPlugin.start(world);
-
             }
             //enemy is out of bounds at bottom side
             if (asteroid.getPosition().getY() > gameData.getDisplayHeight()) {
                 world.removeEntity(asteroid);
-                asteroidPlugin.start(world);
                 asteroidPlugin.start(world);
             }
         }

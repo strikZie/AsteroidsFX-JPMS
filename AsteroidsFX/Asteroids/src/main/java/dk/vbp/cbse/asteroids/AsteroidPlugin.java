@@ -8,6 +8,7 @@ import dk.vbp.cbse.common.services.IGamePluginService;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
+import java.util.List;
 import java.util.Random;
 
 public class AsteroidPlugin implements IGamePluginService {
@@ -16,11 +17,23 @@ public class AsteroidPlugin implements IGamePluginService {
 
     private Random random = new Random();
 
+    int asteroidsCount = 5;
+
     @Override
     public void start(World world) {
-        asteroid = createAsteroid();
-        world.addEntity(asteroid);
+        List<Entity> asteroids = world.getEntities(Asteroid.class);
+        if (asteroids.size() < asteroidsCount) {
+            spawnAsteroids(asteroidsCount - asteroids.size(),world);
+        }
     }
+
+    private void spawnAsteroids(int n, World world) {
+        for (int i = 0; i < n; i++) {
+            asteroid = createAsteroid();
+            world.addEntity(asteroid);
+        }
+    }
+
 
     private Entity createAsteroid() {
         Entity newAsteroid = new Asteroid();

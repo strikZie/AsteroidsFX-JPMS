@@ -1,6 +1,7 @@
 package dk.vbp.cbse.enemy;
 
 import dk.vbp.cbse.common.data.Entity;
+import dk.vbp.cbse.common.data.World;
 
 public class Enemy extends Entity {
     private double speed = 1; // Adjust movement speed
@@ -41,4 +42,10 @@ public class Enemy extends Entity {
         return rotateCooldown;
     }
 
+    @Override
+    public void hit(World world) {
+        world.removeEntity(this);
+        EnemyPlugin enemyPlugin = new EnemyPlugin();
+        enemyPlugin.start(world);
+    }
 }
