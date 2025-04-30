@@ -3,7 +3,6 @@ package dk.vbp.cbse;
 import dk.vbp.cbse.common.bullet.Bullet;
 import dk.vbp.cbse.common.data.Entity;
 import dk.vbp.cbse.common.data.GameData;
-import dk.vbp.cbse.common.data.GameKey;
 import dk.vbp.cbse.common.data.World;
 import dk.vbp.cbse.common.services.IEntityProcessService;
 import dk.vbp.cbse.common.services.IGamePluginService;
@@ -16,17 +15,19 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import dk.vbp.cbse.common.map.IMap;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.ServiceLoader;
 
 import static dk.vbp.cbse.managers.KeyEventManager.setupKeyEvents;
 import static java.util.stream.Collectors.toList;
 
 public class Game extends Application {
-    private Canvas canvas;
-    private GraphicsContext graphicsContext;
     private Pane gamePane;
+    private Pane backgroundLayer;
+    private Pane entityLayer;
     private GameData gameData;
     private final World world = new World();
 
@@ -40,21 +41,18 @@ public class Game extends Application {
         gameData = GameData.getInstance();
 
 
-        canvas = new Canvas(gameData.getDisplayWidth(),gameData.getDisplayHeight());
-        graphicsContext = canvas.getGraphicsContext2D();
-
-
-
-
-        gamePane = new Pane(canvas);
-        Scene scene = new Scene(gamePane);
+        backgroundLayer = new Pane();
+        entityLayer = new Pane();
+        gamePane = new Pane(backgroundLayer, entityLayer);
+        Scene scene = new Scene(gamePane, gameData.getDisplayWidth(), gameData.getDisplayHeight());
         setupKeyEvents(scene,gameData);
 
+        initMap();
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : ServiceLoader.load(IGamePluginService.class)) {
-
             iGamePlugin.start(world);
         }
+
         for (Entity entity : world.getEntities()) {
             ImageView spriteView = new ImageView(entity.getSprite());
             spriteView.setX(entity.getPosition().getX());
@@ -62,20 +60,24 @@ public class Game extends Application {
             spriteView.setRotate(entity.getRotation());
             spriteView.setScaleX(entity.getScale());
             spriteView.setScaleY(entity.getScale());
-            gamePane.getChildren().add(spriteView);
+            entityLayer.getChildren().add(spriteView);
         }
 
         setupGameLoop();
 
-
         stage.setScene(scene);
         stage.setTitle("AsteroidsFX - JPMS");
+        stage.setResizable(false);
         stage.show();
-
-
-
     }
 
+    /**
+     * initalize map module found.
+     */
+    private void initMap() {
+        Optional<IMap> map = ServiceLoader.load(IMap.class).findFirst();
+        map.ifPresent(iMap -> iMap.drawMap(backgroundLayer));
+    }
 
     private void setupGameLoop(){
 
@@ -107,7 +109,7 @@ public class Game extends Application {
     }
 
     private void draw(){
-        gamePane.getChildren().clear();
+        entityLayer.getChildren().clear();
         for (Entity entity : world.getEntities()) {
             ImageView spriteView = new ImageView(entity.getSprite());
             spriteView.setX(entity.getPosition().getX());
@@ -115,8 +117,9 @@ public class Game extends Application {
             spriteView.setRotate(entity.getRotation());
             spriteView.setScaleX(entity.getScale());
             spriteView.setScaleY(entity.getScale());
-            gamePane.getChildren().add(spriteView);
+            entityLayer.getChildren().add(spriteView);
         }
+
     }
     
 
