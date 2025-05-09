@@ -3,7 +3,6 @@ package dk.vbp.cbse.enemy;
 import dk.vbp.cbse.common.bullet.BulletSPI;
 import dk.vbp.cbse.common.data.Entity;
 import dk.vbp.cbse.common.data.GameData;
-import dk.vbp.cbse.common.data.KeyAction;
 import dk.vbp.cbse.common.data.World;
 import dk.vbp.cbse.common.services.IEntityProcessService;
 import javafx.geometry.Point2D;

@@ -1,6 +1,6 @@
 package dk.vbp.cbse;
 
-import dk.vbp.cbse.common.bullet.Bullet;
+
 import dk.vbp.cbse.common.data.Entity;
 import dk.vbp.cbse.common.data.GameData;
 import dk.vbp.cbse.common.data.World;
@@ -10,19 +10,15 @@ import dk.vbp.cbse.common.services.IPostProcessService;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import dk.vbp.cbse.common.map.IMap;
 
-import java.util.Collection;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
 import static dk.vbp.cbse.managers.KeyEventManager.setupKeyEvents;
-import static java.util.stream.Collectors.toList;
 
 public class Game extends Application {
     private Pane gamePane;
@@ -101,9 +97,9 @@ public class Game extends Application {
             postProcessorService.process(world);
         }
 
-        // Remove bullets that move off-screen
+        // Remove entities that move off-screen
         world.getEntities().removeIf(entity ->
-                entity instanceof Bullet &&
+                entity != null &&
                         (entity.getPosition().getX() < 0 || entity.getPosition().getX() > gameData.getDisplayWidth() ||
                                 entity.getPosition().getY() < 0 || entity.getPosition().getY() > gameData.getDisplayHeight()));
     }

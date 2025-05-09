@@ -4,7 +4,6 @@ module GameEngine {
     uses dk.vbp.cbse.common.services.IPostProcessService;
     uses dk.vbp.cbse.common.map.IMap;
     requires Common;
-    requires CommonBullet;
 
     requires javafx.graphics;
     requires javafx.base;
