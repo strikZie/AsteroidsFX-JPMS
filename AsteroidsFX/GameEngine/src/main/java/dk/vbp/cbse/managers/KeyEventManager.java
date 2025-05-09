@@ -1,12 +1,9 @@
 package dk.vbp.cbse.managers;
 
 import dk.vbp.cbse.common.data.GameData;
-import dk.vbp.cbse.common.data.GameKey;
 import dk.vbp.cbse.common.data.Keys;
-import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class KeyEventManager {
 
