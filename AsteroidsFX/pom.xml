@@ -48,43 +48,27 @@
   </dependencyManagement>
 
   <build>
-    <plugins>
-      <!-- execute the resulting project -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
-        <inherited>false</inherited>
-        <executions>
-          <execution>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <executable>java</executable>
-          <workingDirectory>.</workingDirectory>
-          <longModulepath>false</longModulepath>
-          <arguments>
-            <argument>-Dorg.lwjgl.util.Debug=true</argument>
-            <argument>-Djava.library.path=libs</argument>
-            <argument>--module-path=mods-mvn</argument>
-            <argument>--class-path=libs/*</argument>
-            <!--<argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:8000</argument>-->
-            <argument>--module=GameEngine/dk.vbp.cbse.Game</argument>
-            <argument>--add-modules javafx.graphics</argument>
-          </arguments>
-        </configuration>
-      </plugin>
-
-    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.4.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>3.7.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
-
   <profiles>
+    <!-- Profile that executes when no src folder is present. E.g., only the parent.-->
     <profile>
-      <!-- parent project should delete 'mods-mvn' -->
       <id>parent-project</id>
       <activation>
         <file>
@@ -93,16 +77,22 @@
       </activation>
       <build>
         <plugins>
+          <!-- Will clean out the mods-mvn folder, so no remnants are left from previous runs -->
           <plugin>
             <artifactId>maven-clean-plugin</artifactId>
-            <version>3.2.0</version>
+            <executions>
+              <execution>
+                <id>clean-mods</id>
+                <phase>clean</phase>
+                <goals>
+                  <goal>clean</goal>
+                </goals>
+              </execution>
+            </executions>
             <configuration>
               <filesets>
                 <fileset>
                   <directory>mods-mvn</directory>
-                </fileset>
-                <fileset>
-                  <directory>libs</directory>
                 </fileset>
               </filesets>
             </configuration>
@@ -110,8 +100,9 @@
         </plugins>
       </build>
     </profile>
+
+    <!-- Profile that executes when a src folder is present. E.g., never the parent, all the children with code.-->
     <profile>
-      <!-- child projects should copy artifact into 'mods-mvn' -->
       <id>child-project</id>
       <activation>
         <file>
@@ -120,9 +111,9 @@
       </activation>
       <build>
         <plugins>
+          <!-- Will copy the specific modules .jar file to the mods-mvn folder for a central module path.-->
           <plugin>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.0.2</version>
             <executions>
               <execution>
                 <id>copy-installed</id>
@@ -148,5 +139,5 @@
       </build>
     </profile>
   </profiles>
-
 </project>
+

@@ -45,10 +45,46 @@
 
   <build>
     <plugins>
+      <!-- Maven Exec Plugin for easier execution of the program.-->
+      <!-- Does not specify a class path as we do not use anything that cannot run on the module path. -->
+      <!-- Also does not use add-modules as we include necessary dependencies on the module-path. -->
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>java</executable>
+          <workingDirectory>../</workingDirectory>
+          <longModulepath>false</longModulepath>
+          <arguments>
+            <!-- 1) JavaFX on the module-path -->
+            <argument>--module-path</argument>
+            <argument>libs/</argument>
+            <argument>--add-modules</argument>
+            <argument>javafx.controls,javafx.graphics</argument>
 
+            <!-- 2) Your own JARs on the classpath -->
+            <argument>-cp</argument>
+            <argument>mods-mvn/*</argument>
+
+            <!-- 3) Your main class -->
+            <argument>dk.vbp.cbse.Game</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+
+      <!-- Copies the included artifact Ids to the mods-mvn folder. -->
+      <!-- Used to put external dependencies onto the module-path-->
+      <!-- Is run from child pom so we may avoid running it unnecessarily many times -->
+      <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.3.0</version>
         <executions>
           <execution>
             <id>copy-dependencies</id>
@@ -58,29 +94,12 @@
             </goals>
             <configuration>
               <includeArtifactIds>javafx-controls,javafx-graphics,javafx-base</includeArtifactIds>
-              <outputDirectory>../mods-mvn</outputDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>copy</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.openjfx</groupId>
-                  <artifactId>javafx-controls</artifactId>
-                  <overWrite>true</overWrite>
-                  <outputDirectory>../libs</outputDirectory>
-                </artifactItem>
-              </artifactItems>
+              <outputDirectory>../libs</outputDirectory>
             </configuration>
           </execution>
         </executions>
       </plugin>
-    </plugins>
 
+    </plugins>
   </build>
 </project>

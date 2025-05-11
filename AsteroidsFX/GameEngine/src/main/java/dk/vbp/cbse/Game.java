@@ -33,7 +33,6 @@ public class Game extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
         gameData = GameData.getInstance();
 
 
@@ -46,6 +45,7 @@ public class Game extends Application {
         initMap();
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : ServiceLoader.load(IGamePluginService.class)) {
+            System.out.println("test "+iGamePlugin.toString() + iGamePlugin.getClass().getName());
             iGamePlugin.start(world);
         }
 
