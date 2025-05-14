@@ -18,6 +18,7 @@
     <module>Collision</module>
     <module>SpaceMap</module>
     <module>CommonMap</module>
+    <module>AbyssMap</module>
   </modules>
 
   <properties>

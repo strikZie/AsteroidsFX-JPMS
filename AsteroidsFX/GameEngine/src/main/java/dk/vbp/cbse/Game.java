@@ -15,8 +15,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import dk.vbp.cbse.common.map.IMap;
 
+import java.lang.module.Configuration;
+import java.lang.module.FindException;
+import java.lang.module.ModuleFinder;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.ServiceLoader;
+import java.util.Set;
 
 import static dk.vbp.cbse.managers.KeyEventManager.setupKeyEvents;
 
@@ -67,12 +72,43 @@ public class Game extends Application {
         stage.show();
     }
 
+    private Optional<IMap> loadMap(Path modulePath, String moduleName) {
+        ModuleFinder finder = ModuleFinder.of(modulePath);
+
+        ModuleLayer parent = ModuleLayer.boot();
+        Configuration config = null;
+        try {
+            config = parent.configuration()
+                    .resolve(finder, ModuleFinder.of(), Set.of(moduleName));
+        } catch (FindException e) {
+            System.out.println("Module '" + moduleName + "' not found" + e.getMessage());
+            return Optional.empty();
+        }
+
+
+        ClassLoader scl = ClassLoader.getSystemClassLoader();
+        ModuleLayer layer = parent.defineModulesWithOneLoader(config, scl);
+
+        ServiceLoader<IMap> loader = ServiceLoader.load(layer, IMap.class);
+        return loader.findFirst();
+    }
+
+
     /**
      * initalize map module found.
      */
     private void initMap() {
-        Optional<IMap> map = ServiceLoader.load(IMap.class).findFirst();
-        map.ifPresent(iMap -> iMap.drawMap(backgroundLayer));
+        Optional<IMap> map1 = loadMap(Path.of("maps/AbyssMap-1.0-SNAPSHOT.jar"), "AbyssMap");
+        Optional<IMap> map2 = loadMap(Path.of("maps/SpaceMap-1.0-SNAPSHOT.jar"), "SpaceMap");
+
+        if (map1.isPresent()) {
+            map1.ifPresent(iMap -> iMap.drawMap(backgroundLayer));
+        } else  {
+            map2.ifPresent(iMap -> iMap.drawMap(backgroundLayer));
+        }
+
+
+        return;
     }
 
     private void setupGameLoop(){

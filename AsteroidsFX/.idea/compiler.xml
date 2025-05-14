@@ -14,6 +14,7 @@
         <module name="CommonAsteroids" />
         <module name="Collision" />
         <module name="Enemy" />
+        <module name="AbyssMap" />
         <module name="GameEngine" />
         <module name="CommonBullet" />
         <module name="Common" />

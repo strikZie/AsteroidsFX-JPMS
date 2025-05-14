@@ -1,4 +1,4 @@
-import dk.vbp.cbse.spacemap.Map;
+import dk.vbp.cbse.Map;
 
 module SpaceMap {
     requires CommonMap;
