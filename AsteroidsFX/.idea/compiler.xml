@@ -19,5 +19,8 @@
         <module name="Common" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AbyssMap" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
