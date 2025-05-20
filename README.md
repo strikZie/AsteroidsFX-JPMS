@@ -16,7 +16,8 @@ to avoid the jar hell, by using java's ModuleLayer functionality when serviceloa
 
 On this branch this is done on the two Map componenets : AbyssMap and SpaceMap, via the GameEngine component in the Game.java class.
 Here i use the initMap() and loadMap() methods to define hard coded module layers for these two .jar components.
-
+<h2>How to use:</h2>
+to run the project, you must first compile with clean install, then manually move AbyssMap and SpaceMap into maps folder, then mvn exec:exec
 InitMap() method for deciding which map to show
         
     private void initMap() {
