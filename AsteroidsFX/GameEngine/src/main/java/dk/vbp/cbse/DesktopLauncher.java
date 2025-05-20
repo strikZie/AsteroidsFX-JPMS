@@ -18,10 +18,6 @@ public class DesktopLauncher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        for (String beanName : applicationContext.getBeanDefinitionNames()) {
-            System.out.println(beanName);
-        }
-
         Game game = applicationContext.getBean(Game.class);
         game.start(primaryStage);
         primaryStage.show();
