@@ -9,3 +9,9 @@ then subsequent excersizes are implemented on relevant branches with name of the
 all of the excersizes have the main game as the base
 
 e.g. the JavaLab is implemented on the branch JavaLab-ServiceLoader
+
+<h1>Current Excersize : SpringLab</h1>
+
+The current branch is the implementation of the SpringLab where we use the Spring framework for dependency injection,
+
+On this branch this is done on the GameEngine module
