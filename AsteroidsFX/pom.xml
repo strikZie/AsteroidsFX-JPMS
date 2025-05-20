@@ -25,6 +25,7 @@
     <maven.compiler.target>21</maven.compiler.target>
     <maven.compiler.source>21</maven.compiler.source>
     <javafx.version>22</javafx.version>
+    <spring.version>6.2.7</spring.version>
   </properties>
 
   <dependencyManagement>
@@ -43,6 +44,36 @@
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-base</artifactId>
         <version>${javafx.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-expression</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jcl</artifactId>
+        <version>${spring.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -72,7 +103,7 @@
             <argument>--module-path=mods-mvn</argument>
             <argument>--class-path=libs/*</argument>
             <!--<argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:8000</argument>-->
-            <argument>--module=GameEngine/dk.vbp.cbse.Game</argument>
+            <argument>--module=GameEngine/dk.vbp.cbse.DesktopLauncher</argument>
             <argument>--add-modules javafx.graphics</argument>
           </arguments>
         </configuration>

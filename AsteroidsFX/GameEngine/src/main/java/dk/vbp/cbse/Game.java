@@ -15,23 +15,26 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import dk.vbp.cbse.common.map.IMap;
 
-import java.util.Optional;
-import java.util.ServiceLoader;
+import java.util.List;
+
+
 
 import static dk.vbp.cbse.managers.KeyEventManager.setupKeyEvents;
 
-public class Game extends Application {
+public class Game {
     private Pane gamePane;
     private Pane backgroundLayer;
     private Pane entityLayer;
     private GameData gameData;
     private final World world = new World();
 
-    public static void main(String[] args){
-        launch(Game.class);
-    }
+    //Spring related service loading variables of services
 
-    @Override
+    private List<IGamePluginService> gamePluginServices;
+    private List<IEntityProcessService> entityProcessServices;
+    private List<IPostProcessService> postProcessServices;
+    private IMap mapService;
+
     public void start(Stage stage) throws Exception {
 
         gameData = GameData.getInstance();
@@ -44,8 +47,8 @@ public class Game extends Application {
         setupKeyEvents(scene,gameData);
 
         initMap();
-        // Lookup all Game Plugins using ServiceLoader
-        for (IGamePluginService iGamePlugin : ServiceLoader.load(IGamePluginService.class)) {
+
+        for (IGamePluginService iGamePlugin : gamePluginServices) {
             iGamePlugin.start(world);
         }
 
@@ -71,8 +74,9 @@ public class Game extends Application {
      * initalize map module found.
      */
     private void initMap() {
-        Optional<IMap> map = ServiceLoader.load(IMap.class).findFirst();
-        map.ifPresent(iMap -> iMap.drawMap(backgroundLayer));
+        if (mapService != null) {
+            mapService.drawMap(backgroundLayer);
+        }
     }
 
     private void setupGameLoop(){
@@ -89,11 +93,11 @@ public class Game extends Application {
     }
 
     private void update() {
-        for (IEntityProcessService entityProcessorService : ServiceLoader.load(IEntityProcessService.class)) {
+        for (IEntityProcessService entityProcessorService : entityProcessServices) {
             entityProcessorService.process(world);
         }
 
-        for (IPostProcessService postProcessorService : ServiceLoader.load(IPostProcessService.class)) {
+        for (IPostProcessService postProcessorService : postProcessServices) {
             postProcessorService.process(world);
         }
 
@@ -117,8 +121,24 @@ public class Game extends Application {
         }
 
     }
-    
 
 
+    //setters used by spring
 
+
+    public void setGamePluginServices(List<IGamePluginService> gamePluginServices) {
+        this.gamePluginServices = gamePluginServices;
+    }
+
+    public void setEntityProcessServices(List<IEntityProcessService> entityProcessServices) {
+        this.entityProcessServices = entityProcessServices;
+    }
+
+    public void setPostProcessServices(List<IPostProcessService> postProcessServices) {
+        this.postProcessServices = postProcessServices;
+    }
+
+    public void setMapService(IMap mapService) {
+        this.mapService = mapService;
+    }
 }
