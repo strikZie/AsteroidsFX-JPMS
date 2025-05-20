@@ -5,59 +5,30 @@ import dk.vbp.cbse.common.services.IEntityProcessService;
 import dk.vbp.cbse.common.services.IGamePluginService;
 import dk.vbp.cbse.common.services.IPostProcessService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+
 import java.util.List;
-import java.util.ServiceLoader;
-import java.util.stream.Collectors;
+
 
 @Configuration
+@ComponentScan(basePackages = "dk.vbp.cbse")
 public class SpringConfig {
     public SpringConfig() {}
 
     @Bean
-    public Game gameSetup() {
+    public Game gameSetup(List<IGamePluginService> pluginServices,
+                          List<IEntityProcessService> entityProcessors,
+                          List<IPostProcessService> postProcessors,
+                          IMap mapService) {
         Game gameInstance = new Game();
 
-        gameInstance.setGamePluginServices(getPluginServiceList());
-        gameInstance.setEntityProcessServices(getEntityProcessServiceList());
-        gameInstance.setPostProcessServices(getPostProcessServiceList());
-        gameInstance.setMapService(getMapService());
+        gameInstance.setGamePluginServices(pluginServices);
+        gameInstance.setEntityProcessServices(entityProcessors);
+        gameInstance.setPostProcessServices(postProcessors);
+        gameInstance.setMapService(mapService);
 
         return gameInstance;
     }
-
-    @Bean
-    public List<IGamePluginService> getPluginServiceList() {
-        return ServiceLoader.load(IGamePluginService.class)
-                .stream()
-                .map(ServiceLoader.Provider::get)
-                .collect(Collectors.toList());
-    }
-
-    @Bean
-    public List<IEntityProcessService> getEntityProcessServiceList() {
-        return ServiceLoader.load(IEntityProcessService.class)
-                .stream()
-                .map(ServiceLoader.Provider::get)
-                .collect(Collectors.toList());
-    }
-
-    @Bean
-    public List<IPostProcessService> getPostProcessServiceList() {
-        return ServiceLoader.load(IPostProcessService.class)
-                .stream()
-                .map(ServiceLoader.Provider::get)
-                .collect(Collectors.toList());
-    }
-
-    @Bean
-    public IMap getMapService() {
-        return ServiceLoader.load(IMap.class)
-                .stream()
-                .map(ServiceLoader.Provider::get)
-                .findFirst()
-                .orElse(null);
-    }
-
 }

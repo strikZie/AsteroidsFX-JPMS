@@ -7,10 +7,12 @@ import dk.vbp.cbse.common.data.World;
 import dk.vbp.cbse.common.services.IGamePluginService;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Random;
 
+@Component
 public class AsteroidPlugin implements IGamePluginService {
     private GameData gameData = GameData.getInstance();
     private Entity asteroid;

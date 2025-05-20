@@ -7,6 +7,7 @@ import dk.vbp.cbse.common.data.World;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
+
 public class AsteroidSplitter implements IAsteroidSplitter {
 
     @Override

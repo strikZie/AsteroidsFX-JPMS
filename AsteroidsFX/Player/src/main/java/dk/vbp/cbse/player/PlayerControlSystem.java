@@ -12,7 +12,9 @@ import java.util.Collection;
 import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PlayerControlSystem implements IEntityProcessService {
 
 

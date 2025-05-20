@@ -6,9 +6,12 @@ module Asteroids {
     requires Common;
     requires CommonAsteroids;
     requires javafx.graphics;
+    requires spring.context;
 
 
     provides dk.vbp.cbse.common.services.IGamePluginService with AsteroidPlugin;
     provides dk.vbp.cbse.common.services.IEntityProcessService with AsteroidControlSystem;
     provides dk.vbp.cbse.common.asteroid.IAsteroidSplitter with AsteroidSplitter;
+
+    exports dk.vbp.cbse.asteroids to spring.beans;
 }

@@ -4,7 +4,8 @@ import dk.vbp.cbse.common.bullet.Bullet;
 import dk.vbp.cbse.common.data.Entity;
 import dk.vbp.cbse.common.data.World;
 import dk.vbp.cbse.common.services.IGamePluginService;
-
+import org.springframework.stereotype.Component;
+@Component
 public class BulletPlugin implements IGamePluginService {
     @Override
     public void start(World world) {

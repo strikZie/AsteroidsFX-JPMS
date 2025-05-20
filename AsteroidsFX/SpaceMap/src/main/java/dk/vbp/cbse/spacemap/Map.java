@@ -6,7 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
-
+import org.springframework.stereotype.Component;
+@Component
 public class Map implements IMap {
 
     private final URL backgroundUrl = getClass().getResource("/background.jpg");

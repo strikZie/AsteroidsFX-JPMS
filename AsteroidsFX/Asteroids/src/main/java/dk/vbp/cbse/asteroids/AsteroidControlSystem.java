@@ -6,7 +6,9 @@ import dk.vbp.cbse.common.data.GameData;
 import dk.vbp.cbse.common.data.World;
 import dk.vbp.cbse.common.services.IEntityProcessService;
 import javafx.geometry.Point2D;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AsteroidControlSystem implements IEntityProcessService {
     GameData gameData = GameData.getInstance();
     AsteroidPlugin asteroidPlugin = new AsteroidPlugin();

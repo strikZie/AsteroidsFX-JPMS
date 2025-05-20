@@ -7,7 +7,9 @@ import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CollisionEngine implements IPostProcessService {
     @Override
     public void process(World world) {

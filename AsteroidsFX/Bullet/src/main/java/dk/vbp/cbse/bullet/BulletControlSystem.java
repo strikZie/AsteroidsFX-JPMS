@@ -7,7 +7,9 @@ import dk.vbp.cbse.common.data.World;
 import dk.vbp.cbse.common.services.IEntityProcessService;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BulletControlSystem implements IEntityProcessService, BulletSPI {
     @Override
     public void process(World world) {

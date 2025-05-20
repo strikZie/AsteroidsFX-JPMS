@@ -5,9 +5,12 @@ module Player {
     requires Common;
     requires CommonBullet;
     requires javafx.graphics;
+    requires spring.context;
 
     uses dk.vbp.cbse.common.bullet.BulletSPI;
 
     provides dk.vbp.cbse.common.services.IGamePluginService with PlayerPlugin;
     provides dk.vbp.cbse.common.services.IEntityProcessService with PlayerControlSystem;
+
+    exports dk.vbp.cbse.player to spring.beans;
 }
