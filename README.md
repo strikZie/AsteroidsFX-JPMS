@@ -13,7 +13,10 @@ e.g. the JavaLab is implemented on the branch JavaLab-ServiceLoader
 <h1>Current Excersize : MicroservicesLab</h1>
 
 The current branch is the implementation of the MicroservicesLab where we use the Spring framework for starting a scorinsystem web microservice,
-that holds a score value, that can be changed with a call to http://localhost:8080/score/add?point=1
+that holds a score value, that can be changed with a call to http://localhost:8080/score/add?point=1 .
+and score can be gotten with http://localhost:8080/score .
+
+To execute, first launch the springboot application ScoringSystem, then mvn exec:exec to launch the game
 
 
     import org.springframework.boot.SpringApplication;
