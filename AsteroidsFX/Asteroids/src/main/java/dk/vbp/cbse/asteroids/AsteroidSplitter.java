@@ -6,9 +6,11 @@ import dk.vbp.cbse.common.data.Entity;
 import dk.vbp.cbse.common.data.World;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-
+import org.springframework.web.client.RestTemplate;
 
 public class AsteroidSplitter implements IAsteroidSplitter {
+
+    private static RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public void createSplitAsteroid(Asteroid asteroid, World world) {
@@ -20,8 +22,15 @@ public class AsteroidSplitter implements IAsteroidSplitter {
 
                 createSmallAsteroid(world,rotation,asteroid.getPosition());
             }
-        }
+            //add points to score
+            try{
+                Long response = restTemplate.getForObject("http://localhost:8080/score/add?point=1", Long.class);
+                System.out.println("Score updated successfully: " + response);
+            } catch (Exception e) {
+                System.err.println("Failed to update score: " + e.getMessage());
+            }
 
+        }
     }
 
     private void createSmallAsteroid(World world,double rotation, Point2D pos) {
@@ -32,5 +41,6 @@ public class AsteroidSplitter implements IAsteroidSplitter {
         newAsteroid.setPosition(pos);
         newAsteroid.setRotation(rotation);
         world.addEntity(newAsteroid);
+
     }
 }

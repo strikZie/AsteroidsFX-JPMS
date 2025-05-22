@@ -64,6 +64,10 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-jcl</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
   </dependencies>
 
 
@@ -83,7 +87,7 @@
             <configuration>
               <includeArtifactIds>javafx-controls,javafx-graphics,javafx-base,
                 spring-context, spring-core, spring-beans,
-                spring-aop, spring-expression, spring-jcl</includeArtifactIds>
+                spring-aop, spring-expression, spring-jcl, spring-web</includeArtifactIds>
               <outputDirectory>../mods-mvn</outputDirectory>
             </configuration>
           </execution>
