@@ -15,3 +15,6 @@ e.g. the JavaLab is implemented on the branch JavaLab-ServiceLoader
 The current branch is the implementation of the SpringLab where we use the Spring framework for dependency injection,
 
 On this branch this is done on the GameEngine module
+
+Wasn't sure if i was supposed to use autowiring for IEntityProcessors and others, so i first did it with serviceloader, 
+then on the commit e16f3c5  : - serviceloader + autowiring, i change it to use autowiring, and services are annotated as @Component
