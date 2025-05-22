@@ -24,7 +24,7 @@ public class AsteroidSplitter implements IAsteroidSplitter {
             }
             //add points to score
             try{
-                Long response = restTemplate.getForObject("http://localhost:8080/score/add?point=1", Long.class);
+                String response = restTemplate.getForObject("http://localhost:8080/score/add?point=1", String.class);
                 System.out.println("Score updated successfully: " + response);
             } catch (Exception e) {
                 System.err.println("Failed to update score: " + e.getMessage());
