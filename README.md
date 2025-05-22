@@ -18,3 +18,4 @@ On this branch this is done on the GameEngine module
 
 Wasn't sure if i was supposed to use autowiring for IEntityProcessors and others, so i first did it with serviceloader, 
 then on the commit e16f3c5  : - serviceloader + autowiring, i change it to use autowiring, and services are annotated as @Component
+[link to commit](https://github.com/strikZie/AsteroidsFX-JPMS/commit/e16f3c5fd8ed1a79f1eef445f5f356f02a4ce4aa)
