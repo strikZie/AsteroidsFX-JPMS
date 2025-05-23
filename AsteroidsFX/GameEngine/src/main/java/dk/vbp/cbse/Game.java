@@ -98,8 +98,8 @@ public class Game extends Application {
      * initalize map module found.
      */
     private void initMap() {
-        Optional<IMap> map1 = loadMap(Path.of("maps/AbyssMap-1.0-SNAPSHOT.jar"), "AbyssMap");
-        Optional<IMap> map2 = loadMap(Path.of("maps/SpaceMap-1.0-SNAPSHOT.jar"), "SpaceMap");
+        Optional<IMap> map1 = loadMap(Path.of("plugins/AbyssMap-1.0-SNAPSHOT.jar"), "AbyssMap");
+        Optional<IMap> map2 = loadMap(Path.of("plugins/SpaceMap-1.0-SNAPSHOT.jar"), "SpaceMap");
 
         if (map1.isPresent()) {
             map1.ifPresent(iMap -> iMap.drawMap(backgroundLayer));

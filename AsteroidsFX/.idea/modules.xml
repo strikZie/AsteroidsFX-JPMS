@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GameEngine/GameEngine.iml" filepath="$PROJECT_DIR$/GameEngine/GameEngine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScoringSystem.iml" filepath="$PROJECT_DIR$/ScoringSystem.iml" />
     </modules>
   </component>
 </project>
