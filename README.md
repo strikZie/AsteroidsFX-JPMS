@@ -17,14 +17,14 @@ to avoid the jar hell, by using java's ModuleLayer functionality when serviceloa
 On this branch this is done on the two Map componenets : AbyssMap and SpaceMap, via the GameEngine component in the Game.java class.
 Here i use the initMap() and loadMap() methods to define hard coded module layers for these two .jar components.
 <h2>How to use:</h2>
-to run the project, you must first compile with clean install, then manually move AbyssMap and SpaceMap into maps folder, then mvn exec:exec
+to run the project, you must first compile with clean install, then manually move AbyssMap and SpaceMap into plugins folder, then mvn exec:exec
 
 <h2>how layers work</h2>
 InitMap() method for deciding which map to show
         
     private void initMap() {
-        Optional<IMap> map1 = loadMap(Path.of("maps/AbyssMap-1.0-SNAPSHOT.jar"), "AbyssMap");
-        Optional<IMap> map2 = loadMap(Path.of("maps/SpaceMap-1.0-SNAPSHOT.jar"), "SpaceMap");
+        Optional<IMap> map1 = loadMap(Path.of("plugins/AbyssMap-1.0-SNAPSHOT.jar"), "AbyssMap");
+        Optional<IMap> map2 = loadMap(Path.of("plugins/SpaceMap-1.0-SNAPSHOT.jar"), "SpaceMap");
 
         if (map1.isPresent()) {
             map1.ifPresent(iMap -> iMap.drawMap(backgroundLayer));
